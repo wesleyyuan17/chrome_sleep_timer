@@ -1,18 +1,41 @@
-import { useState } from 'react'
+import {
+  Button,
+  MantineProvider,
+  Text,
+  TextInput
+} from '@mantine/core'
 import './App.css'
+import { useState } from 'react'
+import '@mantine/core/styles.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [timerSet, setTimerSet] = useState(false);
 
   return (
-    <>
-      <h1>Sleep Timer</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
+    <MantineProvider>
+      {
+        !timerSet &&
+        <div className="card">
+          <TextInput label="Sleep in..."></TextInput>
+          <Button
+            variant="filled"
+            onClick={() => setTimerSet(true)}
+            style={{width: "100"}}
+          ></Button>
+        </div>
+      }
+      {
+        timerSet &&
+        <div className="card">
+          <Text>[Time Left]</Text>
+          <Button
+            variant="filled"
+            onClick={() => setTimerSet(false)}
+            style={{width: "100"}}
+          ></Button>
+        </div>
+      }
+    </MantineProvider>
   )
 }
 

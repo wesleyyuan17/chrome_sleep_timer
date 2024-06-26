@@ -24,7 +24,11 @@ module.exports = {
         test: /\.css?$/,
         loader: "css-loader",
         exclude: /node_modules/,
-        },
+      },
+      {
+        test: /\@mantine\/core\/styles\.css?$/,
+        loader: "css-loader",
+      },
     ],
   },
   plugins: [
