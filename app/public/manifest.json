@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Streaming Sleep Timer",
+  "description": "Automatically pause streaming services after set time",
+  "version": "0.0.1",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "timer.png"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

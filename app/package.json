@@ -1,0 +1,34 @@
+{
+  "name": "app",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "webpack --config webpack/webpack.config.js"
+  },
+  "dependencies": {
+    "@mantine/core": "7.10.2",
+    "@mantine/hooks": "7.10.2",
+    "@mantine/dropzone": "7.10.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.268",
+    "@types/node": "20.14.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "copy-webpack-plugin": "12.0.2",
+    "css-loader": "7.1.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "typescript": "^5.2.2",
+    "ts-loader": "9.5.1",
+    "vite": "^5.3.1"
+  }
+}
