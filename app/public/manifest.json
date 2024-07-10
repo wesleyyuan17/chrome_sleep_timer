@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "timer.png"
+    "default_icon": "icon.png"
   },
   "permissions": [
     "activeTab",

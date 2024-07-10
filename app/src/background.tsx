@@ -1,5 +1,6 @@
 let secondsLeft: number;
 let interval: NodeJS.Timeout;
+let timeOut: NodeJS.Timeout;
 
 const stopStream = () => {
   const pause = () => {
@@ -43,14 +44,22 @@ const stopStream = () => {
 };
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.cmd === 'START_TIMER') {
+  if (request.cmd === "START_TIMER") {
     secondsLeft = request.timeSet;
     interval = setInterval(() => secondsLeft -= 1, 1000);
-    setTimeout(() => {
+    timeOut = setTimeout(() => {
       clearInterval(interval);
       stopStream();
     }, request.timeSet * 1000);
-  } else if (request.cmd === 'GET_TIME' && secondsLeft) {
-    sendResponse({ time: secondsLeft });
+  } else if (request.cmd === "GET_TIME") {
+    if (interval && secondsLeft >= 0) {
+      sendResponse({ timeLeft: secondsLeft });
+    } else {
+      sendResponse({ timeLeft: null });
+    }
+  } else if (request.cmd == "STOP_TIMER") {
+    clearInterval(interval);
+    clearTimeout(timeOut);
+    secondsLeft = -1;
   }
 });

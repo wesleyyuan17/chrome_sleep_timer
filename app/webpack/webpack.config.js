@@ -1,5 +1,8 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   mode: "production",
   entry: {
@@ -16,20 +19,29 @@ module.exports = {
   module: {
     rules: [
       {
-      test: /\.tsx?$/,
-      loader: "ts-loader",
-      exclude: /node_modules/,
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        exclude: /node_modules/,
       },
       {
         test: /\.css?$/,
-        loader: "css-loader",
+        use: [
+          {loader: "style-loader"},
+          {loader: "css-loader"}
+        ],
         exclude: /node_modules/,
       },
     ],
+  },
+  optimization:{
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ]
   },
   plugins: [
     new CopyPlugin({
         patterns: [{from: ".", to: ".", context: "public"}]
     }),
+    new MiniCssExtractPlugin({filename: `App.css`,}),
   ],
 };

@@ -14,15 +14,13 @@ function App() {
   const [timerSet, setTimerSet] = useState<boolean>(false);
   const [displayTime, setDisplayTime] = useState<string>("");
 
-  
-
   useEffect(() => {
     chrome.runtime.sendMessage(
       { cmd: "GET_TIME" },
       response => {
-        if (response.time) {
+        if (response && response.timeLeft) {
           setTimerSet(true);
-          setDisplayTime(formatTime(response.time));
+          setDisplayTime(formatTime(response.timeLeft));
         }
       }
     );
@@ -31,8 +29,10 @@ function App() {
       chrome.runtime.sendMessage(
         { cmd: "GET_TIME" },
         response => {
-          if (response.time) {
-            setDisplayTime(formatTime(response.time));
+          if (response && response.timeLeft) {
+            setDisplayTime(formatTime(response.timeLeft));
+          } else {
+            setTimerSet(false);
           }
         }
       );
@@ -41,14 +41,11 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-
-
   return (
     <div className="card">
       {
         !timerSet &&
         <div>
-          {/* <h3>Sleep in...</h3> */}
           <label>Sleep in...</label>
           <input type="text" id="sleepTime" ></input>
           <input
@@ -63,7 +60,7 @@ function App() {
 
               const timeSet = parseInt(formValue) * 60;
               chrome.runtime.sendMessage(
-                { cmd: 'START_TIMER', timeSet: timeSet }
+                { cmd: "START_TIMER", timeSet: timeSet }
               );
               setDisplayTime(formatTime(timeSet))
               setTimerSet(true);
@@ -81,7 +78,7 @@ function App() {
             onClick={() => {
               setTimerSet(false);
               setDisplayTime(formatTime(0));
-              chrome.runtime.sendMessage({ cmd: 'START_TIMER', timeSet: 0 });
+              chrome.runtime.sendMessage({ cmd: "STOP_TIMER" });
             }}
             value="Reset"
           ></input>
